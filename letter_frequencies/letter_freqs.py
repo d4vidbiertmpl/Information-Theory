@@ -21,6 +21,8 @@ def get_letter_freqs(input_text, _print=True, normalize=False):
             letter_counter[c] += 1
             total_letters += 1
 
+
+
     if _print:
         for uni_c in np.arange(ord('a'), ord('z') + 1):
             letter = chr(uni_c)
