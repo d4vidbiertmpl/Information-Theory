@@ -5,7 +5,7 @@ import collections
 import numpy as np
 
 
-def get_letter_freqs(input_text, _print=True, normalize=False):
+def get_letter_freqs(input_text, print_results=True, normalize=False):
     if input_text is None:
         # open the input file, which was added as input.txt in the menu on the left.
         input_text = open("../texts/Jack.txt")
@@ -21,16 +21,14 @@ def get_letter_freqs(input_text, _print=True, normalize=False):
             letter_counter[c] += 1
             total_letters += 1
 
-
-
-    if _print:
+    if print_results:
         for uni_c in np.arange(ord('a'), ord('z') + 1):
             letter = chr(uni_c)
             letter_count = letter_counter[letter]
             frequency = np.round(letter_count / total_letters, 4)
             print("Letter {}: {} times, thats {} percent of the total.".format(letter, letter_count, frequency))
 
-    if _print:
+    if print_results:
         mf_letter = letter_counter.most_common(1)[0][0] if letter_counter else None
         print("The most frequent letter is: {} with {} occurences.".format(mf_letter, letter_counter[mf_letter]))
 
