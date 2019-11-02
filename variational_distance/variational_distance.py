@@ -42,8 +42,10 @@ def identify_perm_cipher_lang(pc_freq_np, books):
 
 
 if __name__ == "__main__":
-    norm_freq_books = []
+    print("Order of printed probabilities:")
     print(glob.glob('../texts/Alice*.txt'))
+
+    norm_freq_books = []
     for link in glob.glob('../texts/Alice*.txt'):
         _text = open(link)
         letter_freq_np = counter_to_numpy(lf.get_letter_freqs(_text, print_results=False, normalize=True))
