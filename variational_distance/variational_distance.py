@@ -25,21 +25,19 @@ def calc_variational_distance(books):
         print(" ")
         for q in books:
             # Print for latex table
-            print(total_variation_distance(p, q), " & ", end=" ")
+            print(np.round(total_variation_distance(p, q), 4), end=" ")
     print(" ")
 
 
 def calc_collision_probabilities(books):
-    for p in books:
-        print(collision_probability(p), " & ", end=" ")
+    for _p in books:
+        print(np.round(collision_probability(_p), 4), end=" ")
     print(" ")
 
 
-def identify_perm_cipher_lang(books):
-    perm_cipher = open('../texts/permuted_cipher.txt')
-    pc_freq_np = counter_to_numpy(lf.get_letter_freqs(perm_cipher, print_results=False, normalize=True))
+def identify_perm_cipher_lang(pc_freq_np, books):
     for _p in books:
-        print(total_variation_distance(pc_freq_np, _p), " & ", end=" ")
+        print(np.round(total_variation_distance(pc_freq_np, _p), 4), " & ", end=" ")
     print(" ")
 
 
@@ -51,8 +49,17 @@ if __name__ == "__main__":
         letter_freq_np = counter_to_numpy(lf.get_letter_freqs(_text, print_results=False, normalize=True))
         norm_freq_books.append(letter_freq_np)
 
+    perm_cipher = open('../texts/permuted_cipher.txt')
+    pc_freq_np = counter_to_numpy(lf.get_letter_freqs(perm_cipher, print_results=False, normalize=True))
+
+    print("Total Variation Distance")
     calc_variational_distance(norm_freq_books)
     print("--" * 40)
+    print("Collision Probabilities")
     calc_collision_probabilities(norm_freq_books)
     print("--" * 40)
-    identify_perm_cipher_lang(norm_freq_books)
+    print("Identify Permuted Cipher")
+    identify_perm_cipher_lang(pc_freq_np, norm_freq_books)
+    print("--" * 40)
+    print("Collision Probability Permuted Cipher")
+    calc_collision_probabilities([pc_freq_np])
