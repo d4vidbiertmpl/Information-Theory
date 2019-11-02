@@ -20,24 +20,39 @@ def collision_probability(P):
     return np.sum(np.square(P))
 
 
+def calc_variational_distance(books):
+    for p in books:
+        print(" ")
+        for q in books:
+            # Print for latex table
+            print(total_variation_distance(p, q), " & ", end=" ")
+    print(" ")
+
+
+def calc_collision_probabilities(books):
+    for p in books:
+        print(collision_probability(p), " & ", end=" ")
+    print(" ")
+
+
+def identify_perm_cipher_lang(books):
+    perm_cipher = open('../texts/permuted_cipher.txt')
+    pc_freq_np = counter_to_numpy(lf.get_letter_freqs(perm_cipher, print_results=False, normalize=True))
+    for _p in books:
+        print(total_variation_distance(pc_freq_np, _p), " & ", end=" ")
+    print(" ")
+
+
 if __name__ == "__main__":
-    books = []
+    norm_freq_books = []
+    print(glob.glob('../texts/Alice*.txt'))
     for link in glob.glob('../texts/Alice*.txt'):
         _text = open(link)
         letter_freq_np = counter_to_numpy(lf.get_letter_freqs(_text, print_results=False, normalize=True))
-        books.append(letter_freq_np)
+        norm_freq_books.append(letter_freq_np)
 
-    # for p in books:
-    #     print("New Book")
-    #     for q in books:
-    #         print(total_variation_distance(p, q))
-
-    # for p in books:
-    #     print(collision_probability(p))
-
-    perm_cipher = open('../texts/permuted_cipher.txt')
-    pc_freq_np = counter_to_numpy(lf.get_letter_freqs(perm_cipher, print_results=False, normalize=True))
-    for q in books:
-        print(total_variation_distance(pc_freq_np, q))
-
-
+    calc_variational_distance(norm_freq_books)
+    print("--" * 40)
+    calc_collision_probabilities(norm_freq_books)
+    print("--" * 40)
+    identify_perm_cipher_lang(norm_freq_books)
