@@ -1,1 +1,1 @@
-from letter_frequencies import letter_freqs
+from letter_frequencies import get_letter_freqs

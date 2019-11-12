@@ -37,7 +37,7 @@ def calc_collision_probabilities(books):
 
 def identify_perm_cipher_lang(pc_freq_np, books):
     for _p in books:
-        print(np.round(total_variation_distance(pc_freq_np, _p), 4), " & ", end=" ")
+        print(np.round(total_variation_distance(pc_freq_np, _p), 4), end=" ")
     print(" ")
 
 
