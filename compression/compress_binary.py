@@ -72,11 +72,25 @@ def average_experiment_chunks(runs=100):
     return np.mean(res)
 
 
+def entropy_of_binary(data):
+    alphabet = "01"
+    frequencies = {c: data.count(c) for c in alphabet}
+    print(frequencies)
+    total = sum(frequencies.values())
+    return np.sum([(-frequencies[c] / total) * np.log2(frequencies[c] / total) for c in alphabet])
+
+
 if __name__ == "__main__":
     f = open("../texts/random01.txt", "r")
     text = f.read()
+    orig_len = len(text)
+    print("Original entropy", entropy_of_binary(text))
     text = encode_in_chunks(text, 16, num_ones=3)
     text = encode_in_chunks(text, 2, num_ones=2)
-    print(len(text))
+    print("Compressed entropy", entropy_of_binary(text))
+    encoded_len = len(text)
+    print(orig_len)
+    print(encoded_len)
+    print(encoded_len / orig_len)
 
-    print(average_experiment_chunks())
+    # print(average_experiment_chunks())

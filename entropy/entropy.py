@@ -14,7 +14,7 @@ def parse_text(input_text):
     if input_text is None:
         # open the input file, which was added as input.txt in the menu on the left.
         input_text = open("../texts/Jack.txt")
-        data = input_text.read().lower()
+    data = input_text.read().lower()
 
     regex = re.compile('[^a-z ]')
     data = regex.sub('', data)
@@ -23,11 +23,9 @@ def parse_text(input_text):
 
 
 def entropy_of_text(input_text=None):
-    ########### EDIT BELOW THIS LINE #########
-
     data = parse_text(input_text)
     ## create a dictionary containing the frequencies for all characters (incl. space)
-    alphabet = "abcdefghijklmnopqrstuvwxyz "
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
     frequencies = {c: data.count(c) for c in alphabet}
     total = sum(frequencies.values())
 
