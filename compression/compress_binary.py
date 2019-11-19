@@ -59,7 +59,7 @@ def encode_in_chunks(text, size, num_ones):
 
 def average_experiment_chunks(runs=100):
     res = []
-
+    res_entropy = []
     for _ in range(runs):
         a = np.random.choice([0, 1], 10000, p=[0.99, 0.01])
         text = ''.join([str(i) for i in a])
@@ -68,14 +68,14 @@ def average_experiment_chunks(runs=100):
         text = encode_in_chunks(text, 2, num_ones=2)
 
         res.append(len(text))
+        res_entropy.append(entropy_of_binary(text))
 
-    return np.mean(res)
+    return np.mean(res), np.std(res), np.mean(res_entropy), np.std(res_entropy)
 
 
 def entropy_of_binary(data):
     alphabet = "01"
     frequencies = {c: data.count(c) for c in alphabet}
-    print(frequencies)
     total = sum(frequencies.values())
     return np.sum([(-frequencies[c] / total) * np.log2(frequencies[c] / total) for c in alphabet])
 
@@ -93,4 +93,7 @@ if __name__ == "__main__":
     print(encoded_len)
     print(encoded_len / orig_len)
 
-    # print(average_experiment_chunks())
+    print(text.count("0"))
+    print(text.count("1"))
+
+    print(average_experiment_chunks())
